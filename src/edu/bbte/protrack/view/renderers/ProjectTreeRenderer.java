@@ -23,23 +23,12 @@ public class ProjectTreeRenderer extends DefaultTreeCellRenderer {
         if (value instanceof DefaultMutableTreeNode) {
             Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
 
-            if (userObject instanceof ProjectComponent) {
-                ProjectComponent comp = (ProjectComponent) userObject;
-
-                // Szöveg beállítása: Név + Költség
-                setText(String.format("%s (%.0f €)", comp.getName(), comp.getCalculateTotalCost()));
-
-                // Ikonok és stílusok a Composite típusa alapján
-                if (comp instanceof TaskGroup) {
-                    setFont(getFont().deriveFont(Font.BOLD));
-                    // Itt beállíthatnál mappaikont: setIcon(UIManager.getIcon("FileView.directoryIcon"));
-                } else if (comp instanceof Task) {
-                    Task task = (Task) comp;
-                    // Ha kész van, áthúzott vagy zöld lehetne
-                    if (task.getCompletionPercentage() == 100) {
-                        setForeground(Color.GREEN.darker());
-                    }
-                }
+            if (userObject instanceof TaskGroup) {
+                setIcon(UIManager.getIcon("FileView.directoryIcon")); // Mappa ikon a fázisnak
+                setFont(getFont().deriveFont(Font.BOLD));
+            } else if (userObject instanceof Task) {
+                setIcon(UIManager.getIcon("FileView.fileIcon")); // Fájl ikon a feladatnak
+                setFont(getFont().deriveFont(Font.PLAIN));
             }
         }
         return this;

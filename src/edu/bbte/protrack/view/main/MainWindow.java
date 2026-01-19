@@ -14,6 +14,7 @@ import edu.bbte.protrack.view.dialogs.AddTaskDialog;
 import edu.bbte.protrack.view.dialogs.ProjectWizardDialog;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 
 /**
@@ -27,6 +28,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
     private ProjectTreePanel treePanel;
     private StatisticsPanel statsPanel;
     private JLabel statusLabel;
+    private JPanel detailsPanel; // Ide mozgasd fel a definíciót!
 
     public MainWindow() {
         // Logikai motor és adatmodell inicializálása
@@ -55,7 +57,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         treePanel = new ProjectTreePanel(rootProject);
         add(new JScrollPane(treePanel), BorderLayout.WEST);
 
-        JPanel detailsPanel = new JPanel(new GridBagLayout());
+        detailsPanel = new JPanel(new GridBagLayout());
         detailsPanel.add(new JLabel("Válasszon elemet a fában a műveletekhez."));
         add(detailsPanel, BorderLayout.CENTER);
 
@@ -66,6 +68,18 @@ public class MainWindow extends JFrame implements ProjectObserver {
         statusLabel = new JLabel("Rendszer kész.");
         statusBar.add(statusLabel);
         add(statusBar, BorderLayout.SOUTH);
+
+        treePanel.getTree().addTreeSelectionListener(e -> {
+            // 1. Megszerezzük a kijelölt csomópontot
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePanel.getTree().getLastSelectedPathComponent();
+            if (node == null) return;
+
+            // 2. Kinyerjük belőle a mi objektumunkat (Task vagy TaskGroup)
+            Object userObject = node.getUserObject();
+
+            // 3. Frissítjük a középső panelt
+            showDetails(userObject);
+        });
     }
 
     private void initMenu() {
@@ -135,13 +149,36 @@ public class MainWindow extends JFrame implements ProjectObserver {
         statusLabel.setText(String.format("Portfólió érték: %.2f €", rootProject.getCalculateTotalCost()));
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ignored) {}
+    private void showDetails(Object obj) {
+        detailsPanel.removeAll();
+        detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
 
-        SwingUtilities.invokeLater(() -> {
-            new MainWindow().setVisible(true);
-        });
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+            detailsPanel.add(new JLabel("--- Feladat szerkesztése ---"));
+            detailsPanel.add(new JLabel("Név: " + task.getName()));
+
+            // Csúszka a haladáshoz
+            JSlider progress = new JSlider(0, 100, task.getCompletionPercentage());
+            progress.addChangeListener(e -> {
+                if (!progress.getValueIsAdjusting()) {
+                    // Itt hívjuk majd a parancsot!
+                    task.setCompletion(progress.getValue());
+                    eventManager.trigger(new ProjectEvent(ProjectEvent.EventType.DATA_CHANGED, task));
+                }
+            });
+            detailsPanel.add(new JLabel("Haladás:"));
+            detailsPanel.add(progress);
+
+        } else if (obj instanceof TaskGroup) {
+            TaskGroup group = (TaskGroup) obj;
+            detailsPanel.add(new JLabel("--- Fázis részletei ---"));
+            detailsPanel.add(new JLabel("Név: " + group.getName()));
+            detailsPanel.add(new JLabel("Allemek száma: " + group.getChildren().size()));
+        }
+
+        detailsPanel.revalidate();
+        detailsPanel.repaint();
     }
+
 }
