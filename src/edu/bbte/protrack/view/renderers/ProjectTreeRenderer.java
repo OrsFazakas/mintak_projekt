@@ -24,10 +24,10 @@ public class ProjectTreeRenderer extends DefaultTreeCellRenderer {
             Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
 
             if (userObject instanceof TaskGroup) {
-                setIcon(UIManager.getIcon("FileView.directoryIcon")); // Mappa ikon a fázisnak
+                setIcon(getDefaultClosedIcon()); // Mappa ikon a fázisnak
                 setFont(getFont().deriveFont(Font.BOLD));
             } else if (userObject instanceof Task) {
-                setIcon(UIManager.getIcon("FileView.fileIcon")); // Fájl ikon a feladatnak
+                setIcon(getDefaultLeafIcon()); // Fájl ikon a feladatnak
                 setFont(getFont().deriveFont(Font.PLAIN));
             }
         }

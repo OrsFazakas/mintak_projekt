@@ -151,7 +151,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
 
     private void showDetails(Object obj) {
         detailsPanel.removeAll();
-        detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
+        detailsPanel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
 
         if (obj instanceof Task) {
             Task task = (Task) obj;
