@@ -24,7 +24,12 @@ public abstract class ProjectComponent implements Serializable {
         return baseCost;
     }
 
+    public void setBaseCost(double baseCost) {
+        this.baseCost = baseCost;
+    }
+
     // Absztrakt metódusok, amiket a leszármazottak specifikusan számolnak ki
     public abstract double getCalculateTotalCost();
+
     public abstract int getCompletionPercentage();
 }

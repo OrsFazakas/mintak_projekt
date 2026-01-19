@@ -1,6 +1,7 @@
 package edu.bbte.protrack.view.dialogs;
 
-import edu.bbte.protrack.logic.creators.ConstructionProjectFactory;
+import edu.bbte.protrack.logic.creators.MarketingProjectFactory;
+import edu.bbte.protrack.logic.creators.SalesProjectFactory;
 import edu.bbte.protrack.logic.creators.ITProjectFactory;
 import edu.bbte.protrack.logic.creators.ProjectFactory;
 import edu.bbte.protrack.model.entities.Task;
@@ -47,7 +48,7 @@ public class AddTaskDialog extends JDialog {
         gbc.gridy = row;
         add(new JLabel("Típus:"), gbc);
         gbc.gridx = 1;
-        typeCombo = new JComboBox<>(new String[] { "IT Fejlesztés", "Építőipar" });
+        typeCombo = new JComboBox<>(new String[] { "IT Fejlesztés", "Marketing", "Sales" });
         add(typeCombo, gbc);
 
         // Költség
@@ -123,10 +124,19 @@ public class AddTaskDialog extends JDialog {
 
             // Abstract Factory kiválasztása
             ProjectFactory factory;
-            if (typeCombo.getSelectedItem().equals("IT Fejlesztés")) {
-                factory = new ITProjectFactory();
-            } else {
-                factory = new ConstructionProjectFactory();
+            String selectedType = (String) typeCombo.getSelectedItem();
+            switch (selectedType) {
+                case "IT Fejlesztés":
+                    factory = new ITProjectFactory();
+                    break;
+                case "Marketing":
+                    factory = new MarketingProjectFactory();
+                    break;
+                case "Sales":
+                    factory = new SalesProjectFactory();
+                    break;
+                default:
+                    factory = new ITProjectFactory();
             }
 
             // A gyár hozza létre a konkrét Task-ot
