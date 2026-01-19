@@ -1,6 +1,9 @@
 package edu.bbte.protrack.model.entities;
 
-public abstract class ProjectComponent {
+import java.io.Serializable;
+
+public abstract class ProjectComponent implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String name;
     protected double baseCost;
 
