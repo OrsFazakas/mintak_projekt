@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Task extends ProjectComponent {
     private int completion; // 0 és 100 közötti érték
-    private String assignedEmployee;
+    private Employee assignedEmployee;
     private LocalDate deadline;
     private Priority priority;
 
@@ -35,7 +35,16 @@ public class Task extends ProjectComponent {
         }
     }
 
-    public Task(String name, double cost, String employee) {
+    public Task(String name, double cost, String employeeName) {
+        super(name, cost);
+        // Alapértelmezett Employee létrehozása a névből
+        this.assignedEmployee = new Employee(employeeName, "Általános", 25.0);
+        this.completion = 0;
+        this.priority = Priority.MEDIUM;
+        this.deadline = null;
+    }
+
+    public Task(String name, double cost, Employee employee) {
         super(name, cost);
         this.assignedEmployee = employee;
         this.completion = 0;
@@ -43,12 +52,30 @@ public class Task extends ProjectComponent {
         this.deadline = null;
     }
 
-    public String getAssignedEmployee() {
+    public Employee getEmployee() {
         return assignedEmployee;
     }
 
-    public void setAssignedEmployee(String assignedEmployee) {
-        this.assignedEmployee = assignedEmployee;
+    public void setEmployee(Employee employee) {
+        this.assignedEmployee = employee;
+    }
+
+    /**
+     * Visszafelé kompatibilitás miatt - visszaadja a felelős nevét.
+     */
+    public String getAssignedEmployee() {
+        return assignedEmployee != null ? assignedEmployee.getName() : "Nincs hozzárendelve";
+    }
+
+    /**
+     * Visszafelé kompatibilitás - String alapú beállítás.
+     */
+    public void setAssignedEmployee(String employeeName) {
+        if (this.assignedEmployee != null) {
+            this.assignedEmployee.setName(employeeName);
+        } else {
+            this.assignedEmployee = new Employee(employeeName, "Általános", 25.0);
+        }
     }
 
     public LocalDate getDeadline() {
@@ -86,13 +113,13 @@ public class Task extends ProjectComponent {
     }
 
     /**
-     * Ellenőrzi, hogy a határidő hamarosan lejár-e (3 napon belül).
+     * Ellenőrzi, hogy a határidő hamarosan lejár-e (2 napon belül).
      */
     public boolean isDueSoon() {
         if (deadline == null || isCompleted())
             return false;
         LocalDate now = LocalDate.now();
-        return !now.isAfter(deadline) && !now.plusDays(3).isBefore(deadline);
+        return !now.isAfter(deadline) && !now.plusDays(2).isBefore(deadline);
     }
 
     @Override

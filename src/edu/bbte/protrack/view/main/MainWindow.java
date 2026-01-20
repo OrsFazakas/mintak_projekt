@@ -2,6 +2,7 @@ package edu.bbte.protrack.view.main;
 
 import edu.bbte.protrack.commands.AddTaskCommand;
 import edu.bbte.protrack.commands.DeleteCommand;
+import edu.bbte.protrack.commands.UpdateCompletionCommand;
 import edu.bbte.protrack.commands.Command;
 import edu.bbte.protrack.commands.CommandManager;
 import edu.bbte.protrack.model.entities.Task;
@@ -641,7 +642,9 @@ public class MainWindow extends JFrame implements ProjectObserver {
 
             // Felelős
             gbc.gridy++;
-            detailsPanel.add(new JLabel("Felelős: " + task.getAssignedEmployee()), gbc);
+            edu.bbte.protrack.model.entities.Employee emp = task.getEmployee();
+            String felelősNév = (emp != null) ? emp.getName() : "Nincs hozzárendelve";
+            detailsPanel.add(new JLabel("👤 Felelős: " + felelősNév), gbc);
 
             // Haladás címke a százalékkal
             gbc.gridy++;
@@ -666,12 +669,16 @@ public class MainWindow extends JFrame implements ProjectObserver {
             progress.setMinorTickSpacing(5);
             progress.setPaintTicks(true);
             progress.setPaintLabels(true);
+            final int[] lastValue = { task.getCompletionPercentage() };
             progress.addChangeListener(e -> {
                 progressLabel.setText("Haladás: " + progress.getValue() + "%");
-                if (!progress.getValueIsAdjusting()) {
-                    task.setCompletion(progress.getValue());
+                if (!progress.getValueIsAdjusting() && progress.getValue() != lastValue[0]) {
+                    // COMMAND MINTA: UpdateCompletionCommand - Undo támogatással
+                    UpdateCompletionCommand cmd = new UpdateCompletionCommand(task, progress.getValue());
+                    commandManager.executeCommand(cmd);
+                    lastValue[0] = progress.getValue();
                     eventManager.trigger(new ProjectEvent(ProjectEvent.EventType.DATA_CHANGED, task));
-                    showDetails(task); // Frissítsük a panelt az állapot ikonhoz
+                    showDetails(task);
                 }
             });
             detailsPanel.add(progress, gbc);
@@ -683,7 +690,8 @@ public class MainWindow extends JFrame implements ProjectObserver {
             JButton completeBtn = new JButton("✅ Befejezés (100%)");
             completeBtn.setEnabled(!task.isCompleted());
             completeBtn.addActionListener(e -> {
-                task.setCompletion(100);
+                UpdateCompletionCommand cmd = new UpdateCompletionCommand(task, 100);
+                commandManager.executeCommand(cmd);
                 eventManager.trigger(new ProjectEvent(ProjectEvent.EventType.DATA_CHANGED, task));
                 showDetails(task);
             });
@@ -691,7 +699,8 @@ public class MainWindow extends JFrame implements ProjectObserver {
 
             JButton resetBtn = new JButton("🔄 Visszaállítás (0%)");
             resetBtn.addActionListener(e -> {
-                task.setCompletion(0);
+                UpdateCompletionCommand cmd = new UpdateCompletionCommand(task, 0);
+                commandManager.executeCommand(cmd);
                 eventManager.trigger(new ProjectEvent(ProjectEvent.EventType.DATA_CHANGED, task));
                 showDetails(task);
             });
