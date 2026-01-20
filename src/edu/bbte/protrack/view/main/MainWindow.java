@@ -24,9 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- * Az alkalmazás főablaka.
- */
+//Az alkalmazás főablaka.
 public class MainWindow extends JFrame implements ProjectObserver {
     private final CommandManager commandManager;
     private TaskGroup rootProject;
@@ -169,9 +167,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         setupContextMenu();
     }
 
-    /**
-     * Üdvözlő panel megjelenítése induláskor.
-     */
+    //Üdvözlő panel megjelenítése induláskor.
     private void showWelcomePanel() {
         detailsPanel.removeAll();
         detailsPanel.setLayout(new java.awt.GridBagLayout());
@@ -215,9 +211,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         detailsPanel.repaint();
     }
 
-    /**
-     * Jobb-klikk kontextus menü beállítása.
-     */
+    //Jobb-klikk kontextus menü beállítása.
     private void setupContextMenu() {
         JPopupMenu contextMenu = new JPopupMenu();
 
@@ -269,9 +263,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         treePanel.getTree().setComponentPopupMenu(contextMenu);
     }
 
-    /**
-     * Visszaadja a kiválasztott Task-ot, vagy null-t ha nincs.
-     */
+    //Visszaadja a kiválasztott Task-ot, vagy null-t ha nincs.
     private Task getSelectedTask() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePanel.getTree().getLastSelectedPathComponent();
         if (node != null && node.getUserObject() instanceof Task) {
@@ -280,9 +272,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         return null;
     }
 
-    /**
-     * Beállítja a kiválasztott task prioritását.
-     */
+    //Beállítja a kiválasztott task prioritását.
     private void setPriority(Task.Priority priority) {
         Task task = getSelectedTask();
         if (task != null) {
@@ -292,9 +282,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         }
     }
 
-    /**
-     * Feladat szerkesztése dialógussal.
-     */
+    //Feladat szerkesztése dialógussal.
     private void handleEditTask(Task task) {
         EditTaskDialog dialog = new EditTaskDialog(this, task);
         dialog.setVisible(true);
@@ -304,9 +292,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         }
     }
 
-    /**
-     * Projekt/mappa átnevezése.
-     */
+    //Projekt/mappa átnevezése.
     private void handleRenameProject(TaskGroup group) {
         String newName = JOptionPane.showInputDialog(this,
                 "Adja meg az új nevet:",
@@ -419,11 +405,9 @@ public class MainWindow extends JFrame implements ProjectObserver {
         }
     }
 
-    /**
-     * Visszaadja a fában kiválasztott TaskGroup-ot.
-     * Ha Task van kiválasztva, null-t ad vissza (nem lehet oda hozzáadni).
-     * Ha nincs kijelölés, a rootProject-et adja vissza.
-     */
+     //Visszaadja a fában kiválasztott TaskGroup-ot.
+     //Ha Task van kiválasztva, null-t ad vissza (nem lehet oda hozzáadni).
+     //Ha nincs kijelölés, a rootProject-et adja vissza.
     private TaskGroup getSelectedTaskGroup() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePanel.getTree().getLastSelectedPathComponent();
         if (node == null) {
@@ -449,9 +433,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         eventManager.trigger(new ProjectEvent(ProjectEvent.EventType.COMPONENT_ADDED, rootProject));
     }
 
-    /**
-     * Törli a kiválasztott elemet a projektből.
-     */
+    //Törli a kiválasztott elemet a projektből.
     private void handleDelete() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePanel.getTree().getLastSelectedPathComponent();
         if (node == null || node.getUserObject() == rootProject) {
@@ -491,9 +473,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         }
     }
 
-    /**
-     * Keresés és szűrés a projektben.
-     */
+    //Keresés és szűrés a projektben.
     private void highlightMatchingTasks(String searchText, String filter) {
         java.util.List<Task> matchingTasks = new java.util.ArrayList<>();
         findMatchingTasks(rootProject, searchText, filter, matchingTasks);
@@ -525,9 +505,7 @@ public class MainWindow extends JFrame implements ProjectObserver {
         }
     }
 
-    /**
-     * Rekurzívan megkeresi a szűrési feltételeknek megfelelő taskokat.
-     */
+    //Rekurzívan megkeresi a szűrési feltételeknek megfelelő taskokat.
     private void findMatchingTasks(TaskGroup group, String searchText, String filter, java.util.List<Task> results) {
         for (edu.bbte.protrack.model.entities.ProjectComponent comp : group.getChildren()) {
             if (comp instanceof Task) {

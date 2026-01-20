@@ -14,6 +14,6 @@ public class MarketingProjectFactory implements ProjectFactory {
 
     @Override
     public Employee createDefaultEmployee(String name) {
-        return new Employee(name, "Campaign Specialist", 35.0);
+        return new Employee(name);
     }
 }

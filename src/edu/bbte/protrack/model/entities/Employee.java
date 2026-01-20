@@ -2,9 +2,8 @@ package edu.bbte.protrack.model.entities;
 
 import java.io.Serializable;
 
-/**
- * Reprezentál egy munkavállalót, akihez feladatok rendelhetők.
- */
+
+ //Reprezentál egy munkavállalót, akihez feladatok rendelhetők.
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -12,12 +11,6 @@ public class Employee implements Serializable {
 
     public Employee(String name) {
         this.name = name;
-    }
-
-    // Visszafelé kompatibilitás a régi konstruktorral
-    public Employee(String name, String role, double hourlyRate) {
-        this.name = name;
-        // role és hourlyRate ignorálva
     }
 
     public String getName() {

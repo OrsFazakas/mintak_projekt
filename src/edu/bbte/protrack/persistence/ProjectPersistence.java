@@ -5,10 +5,8 @@ import edu.bbte.protrack.model.entities.ProjectComponent;
 
 import java.io.*;
 
-/**
- * Egyszerű fájl-alapú perzisztencia Java szerializációval.
- * A projekt adatokat .dat fájlban tárolja.
- */
+//Egyszerű fájl-alapú perzisztencia Java szerializációval.
+//A projekt adatokat .dat fájlban tárolja.
 public class ProjectPersistence {
     private static final String DEFAULT_FILE_PATH = "protrack_data.dat";
     private final String filePath;
@@ -21,11 +19,8 @@ public class ProjectPersistence {
         this.filePath = filePath;
     }
 
-    /**
-     * Elmenti a projekt gyökérelemet fájlba.
-     * @param rootProject A mentendő projekt (TaskGroup)
-     * @return true, ha sikeres volt a mentés
-     */
+
+    //Elmenti a projekt gyökérelemet fájlba.
     public boolean save(TaskGroup rootProject) {
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new FileOutputStream(filePath))) {
@@ -39,10 +34,7 @@ public class ProjectPersistence {
         }
     }
 
-    /**
-     * Betölti a projektet a fájlból.
-     * @return A betöltött TaskGroup, vagy null ha nem sikerült
-     */
+    //Betölti a projektet a fájlból.
     public TaskGroup load() {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -62,18 +54,13 @@ public class ProjectPersistence {
         }
     }
 
-    /**
-     * Ellenőrzi, hogy létezik-e mentett projekt.
-     * @return true, ha van mentett adat
-     */
+    //Ellenőrzi, hogy létezik-e mentett projekt.
     public boolean hasSavedData() {
         return new File(filePath).exists();
     }
 
-    /**
-     * Törli a mentett adatokat.
-     * @return true, ha sikeres volt a törlés
-     */
+
+    //Törli a mentett adatokat.
     public boolean deleteSavedData() {
         File file = new File(filePath);
         if (file.exists()) {

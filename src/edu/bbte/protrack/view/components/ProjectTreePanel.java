@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-/**
- * A Composite struktúra vizuális megjelenítése JTree használatával.
- */
+//A Composite struktúra vizuális megjelenítése JTree használatával.
 public class ProjectTreePanel extends JPanel {
     private final JTree tree;
     private TaskGroup rootData;
@@ -38,9 +36,7 @@ public class ProjectTreePanel extends JPanel {
         tree.expandRow(0);
     }
 
-    /**
-     * Rekurzívan bejárja a Composite struktúrát és felépíti a JTree csomópontjait.
-     */
+    //Rekurzívan bejárja a Composite struktúrát és felépíti a JTree csomópontjait.
     private DefaultMutableTreeNode createNodes(ProjectComponent component) {
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(component);
 
@@ -53,9 +49,7 @@ public class ProjectTreePanel extends JPanel {
         return node;
     }
 
-    /**
-     * Frissíti a fa nézetet, megőrizve a kinyitott állapotokat és a kijelölést.
-     */
+    //Frissíti a fa nézetet, megőrizve a kinyitott állapotokat és a kijelölést.
     public void refreshTree() {
         // 1. Mentjük a kijelölt elem útvonalát (nevek alapján)
         TreePath selectedPath = tree.getSelectionPath();
@@ -91,9 +85,7 @@ public class ProjectTreePanel extends JPanel {
         tree.expandRow(0);
     }
 
-    /**
-     * Lekéri egy TreePath elemneveit.
-     */
+    //Lekéri egy TreePath elemneveit.
     private List<String> getPathNames(TreePath path) {
         List<String> names = new ArrayList<>();
         if (path != null) {
@@ -108,9 +100,7 @@ public class ProjectTreePanel extends JPanel {
         return names;
     }
 
-    /**
-     * Rekurzívan elmenti a kinyitott elemek útvonalait.
-     */
+    //Rekurzívan elmenti a kinyitott elemek útvonalait.
     private void saveExpandedPaths(DefaultMutableTreeNode node, List<String> currentPath, List<List<String>> result) {
         Object userObj = node.getUserObject();
         if (userObj instanceof ProjectComponent) {
@@ -129,9 +119,8 @@ public class ProjectTreePanel extends JPanel {
         }
     }
 
-    /**
-     * Megkeresi a TreePath-t nevek alapján.
-     */
+
+    //Megkeresi a TreePath-t nevek alapján.
     private TreePath findPathByNames(DefaultMutableTreeNode root, List<String> names) {
         if (names.isEmpty())
             return null;
@@ -169,9 +158,7 @@ public class ProjectTreePanel extends JPanel {
         return tree;
     }
 
-    /**
-     * Új gyökér projekt beállítása (pl. fájlból betöltéskor).
-     */
+    //Új gyökér projekt beállítása (pl. fájlból betöltéskor).
     public void updateRootProject(TaskGroup newRoot) {
         this.rootData = newRoot;
         DefaultTreeModel model = (DefaultTreeModel) tree.getModel();

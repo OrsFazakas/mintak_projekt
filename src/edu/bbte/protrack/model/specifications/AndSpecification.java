@@ -2,9 +2,7 @@ package edu.bbte.protrack.model.specifications;
 
 import edu.bbte.protrack.model.entities.ProjectComponent;
 
-/**
- * Logikai ÉS kapcsolat két specifikáció között.
- */
+//Logikai ÉS kapcsolat két specifikáció között.
 public class AndSpecification implements Specification {
     private final Specification left;
     private final Specification right;

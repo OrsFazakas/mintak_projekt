@@ -4,9 +4,8 @@ import edu.bbte.protrack.model.entities.TaskGroup;
 import edu.bbte.protrack.model.entities.ProjectComponent;
 import java.util.Date;
 
-/**
- * Builder minta a komplex projektek (TaskGroup) összeállításához.
- */
+
+//Builder minta a komplex projektek (TaskGroup) összeállításához.
 public class ProjectBuilder {
     private String projectName;
     private TaskGroup rootGroup;
@@ -27,14 +26,12 @@ public class ProjectBuilder {
         return this;
     }
 
-    /**
-     * Véglegesíti az építést. Itt végezhető el a végső validáció is.
-     */
+
+    //Véglegesíti az építést. Itt végezhető el a végső validáció is.
     public TaskGroup build() {
         if (projectName == null || projectName.isEmpty()) {
             throw new IllegalStateException("A projekt neve nem lehet üres!");
         }
-        // Itt egyéb üzleti logikai ellenőrzések is futhatnak
         return rootGroup;
     }
 }

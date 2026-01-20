@@ -8,9 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 
-/**
- * Egyedi megjelenítő a fához, amely típusfüggő ikonokat és formázást biztosít.
- */
+//Egyedi megjelenítő a fához, amely típusfüggő ikonokat és formázást biztosít.
 public class ProjectTreeRenderer extends DefaultTreeCellRenderer {
 
     @Override
@@ -48,9 +46,7 @@ public class ProjectTreeRenderer extends DefaultTreeCellRenderer {
         return this;
     }
 
-    /**
-     * Létrehoz egy színes kör ikont a prioritás alapján.
-     */
+    //Létrehoz egy színes kör ikont a prioritás alapján.
     private Icon createPriorityIcon(Task.Priority priority) {
         return new Icon() {
             @Override

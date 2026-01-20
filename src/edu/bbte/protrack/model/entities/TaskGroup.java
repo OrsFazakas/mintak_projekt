@@ -3,10 +3,8 @@ package edu.bbte.protrack.model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A Composite minta "Composite" eleme.
- * Tartalmazhat Taskokat vagy további TaskGroupokat is.
- */
+ //A Composite minta "Composite" eleme.
+ //Tartalmazhat Taskokat vagy további TaskGroupokat is.
 public class TaskGroup extends ProjectComponent {
     private List<ProjectComponent> children;
 
@@ -24,9 +22,7 @@ public class TaskGroup extends ProjectComponent {
         children.remove(component);
     }
 
-    /**
-     * Hozzáad egy komponenst a megadott pozícióba (undo támogatáshoz).
-     */
+    //Hozzáad egy komponenst a megadott pozícióba (undo támogatáshoz).
     public void addComponentAt(ProjectComponent component, int index) {
         if (index >= 0 && index <= children.size()) {
             children.add(index, component);
@@ -36,7 +32,6 @@ public class TaskGroup extends ProjectComponent {
     }
 
     public List<ProjectComponent> getChildren() {
-        // Visszaadjuk a listát, de érdemes lehet másolatot adni a védelem miatt
         return new ArrayList<>(children);
     }
 

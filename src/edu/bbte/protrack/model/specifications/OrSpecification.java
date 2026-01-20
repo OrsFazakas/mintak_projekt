@@ -2,9 +2,7 @@ package edu.bbte.protrack.model.specifications;
 
 import edu.bbte.protrack.model.entities.ProjectComponent;
 
-/**
- * Logikai VAGY kapcsolat két specifikáció között.
- */
+//Logikai VAGY kapcsolat két specifikáció között.
 public class OrSpecification implements Specification {
     private final Specification left;
     private final Specification right;

@@ -6,9 +6,7 @@ import edu.bbte.protrack.model.entities.TaskGroup;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Dialógus ablak, amely a ProjectBuilder segítségével hoz létre új projektet.
- */
+//Dialógus ablak, amely a ProjectBuilder segítségével hoz létre új projektet.
 public class ProjectWizardDialog extends JDialog {
     private JTextField nameField;
     private TaskGroup result;

@@ -14,6 +14,6 @@ public class SalesProjectFactory implements ProjectFactory {
 
     @Override
     public Employee createDefaultEmployee(String name) {
-        return new Employee(name, "Account Manager", 40.0);
+        return new Employee(name);
     }
 }

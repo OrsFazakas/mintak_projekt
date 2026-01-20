@@ -12,10 +12,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * Dialógus, amely az Abstract Factory segítségével hoz létre típus-specifikus
- * feladatokat.
- */
+
+//Dialógus, amely az Abstract Factory segítségével hoz létre típus-specifikus feladatokat.
+
 public class AddTaskDialog extends JDialog {
     private JTextField nameField;
     private JTextField costField;

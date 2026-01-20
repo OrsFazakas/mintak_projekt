@@ -17,11 +17,8 @@ import edu.bbte.protrack.observer.ProjectObserver;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Statisztikai panel, amely az Observer mintán keresztül frissül,
- * és a Specification minta segítségével szűri az adatokat.
- * A Decorator minta segítségével ÁFA-val növelt költséget is megjelenít.
- */
+//Statisztikai panel, amely az Observer mintán keresztül frissül, és a Specification minta segítségével szűri az adatokat.
+
 public class StatisticsPanel extends JPanel implements ProjectObserver {
     private TaskGroup rootProject;
     private ProjectComponent selectedComponent;

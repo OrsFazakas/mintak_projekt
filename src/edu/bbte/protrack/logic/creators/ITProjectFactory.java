@@ -12,6 +12,6 @@ public class ITProjectFactory implements ProjectFactory {
 
     @Override
     public Employee createDefaultEmployee(String name) {
-        return new Employee(name, "Software Engineer", 50.0);
+        return new Employee(name);
     }
 }

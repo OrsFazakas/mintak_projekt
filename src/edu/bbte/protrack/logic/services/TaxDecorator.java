@@ -2,9 +2,7 @@ package edu.bbte.protrack.logic.services;
 
 import edu.bbte.protrack.model.entities.ProjectComponent;
 
-/**
- * Hozzáad egy meghatározott adót az elem teljes költségéhez.
- */
+//Hozzáad egy meghatározott adót az elem teljes költségéhez.
 public class TaxDecorator extends CostDecorator {
     private final double taxRate;
 
@@ -21,7 +19,6 @@ public class TaxDecorator extends CostDecorator {
 
     @Override
     public int getCompletionPercentage() {
-        // A haladás mértékét nem befolyásolja a költségdekorátor
         return decoratedComponent.getCompletionPercentage();
     }
 }

@@ -3,10 +3,9 @@ package edu.bbte.protrack.commands;
 import edu.bbte.protrack.model.entities.ProjectComponent;
 import edu.bbte.protrack.model.entities.TaskGroup;
 
-/**
- * Command minta: Elem törlése a projektből.
- * Támogatja az undo műveletet (visszaállítja a törölt elemet).
- */
+//Command minta: Elem törlése a projektből.
+//Támogatja az undo műveletet (visszaállítja a törölt elemet).
+
 public class DeleteCommand implements Command {
     private final TaskGroup parent;
     private final ProjectComponent componentToDelete;

@@ -7,9 +7,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-/**
- * Dialógus egy meglévő feladat szerkesztéséhez.
- */
+//Dialógus egy meglévő feladat szerkesztéséhez.
 public class EditTaskDialog extends JDialog {
     private final Task task;
     private boolean saved = false;

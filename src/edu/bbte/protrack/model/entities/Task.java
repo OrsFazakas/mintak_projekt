@@ -38,7 +38,7 @@ public class Task extends ProjectComponent {
     public Task(String name, double cost, String employeeName) {
         super(name, cost);
         // Alapértelmezett Employee létrehozása a névből
-        this.assignedEmployee = new Employee(employeeName, "Általános", 25.0);
+        this.assignedEmployee = new Employee(employeeName);
         this.completion = 0;
         this.priority = Priority.MEDIUM;
         this.deadline = null;
@@ -74,7 +74,7 @@ public class Task extends ProjectComponent {
         if (this.assignedEmployee != null) {
             this.assignedEmployee.setName(employeeName);
         } else {
-            this.assignedEmployee = new Employee(employeeName, "Általános", 25.0);
+            this.assignedEmployee = new Employee(employeeName);
         }
     }
 
